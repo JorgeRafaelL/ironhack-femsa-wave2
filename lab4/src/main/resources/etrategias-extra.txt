@@ -1,0 +1,2 @@
+Cifrado a Nivel de Base de Datos:
+Habilitar el cifrado en la base de datos para los datos sensibles. Esto puede incluir cifrar columnas específicas de la base de datos (por ejemplo, contraseñas, números de tarjeta etc.).

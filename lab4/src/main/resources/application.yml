@@ -1,0 +1,16 @@
+spring:
+    application:
+        name: lab4
+jwt:
+    secret: 43rtrtt4545556.-_
+    expiration: 3600000
+
+server:
+    ssl:
+        enabled: true
+        key-store: classpath:keystore.jks
+        key-store-password: password
+        key-store-type: JKS
+        key-alias: jorge
+        protocol: TLS
+
