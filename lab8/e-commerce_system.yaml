@@ -1,0 +1,321 @@
+openapi: 3.1.0
+info:
+  description: "API for an e-commerce system that manages user accounts, processes orders, and handles customer interactions."
+  title: E-commerce System API
+  version: 1.0.0
+
+servers:
+  - description: Dummy server
+    url: https://api.e-commercejorge.com/v1
+
+paths:
+  /users:
+    get:
+      description: Retrieve a list of all users in the system.
+      summary: List all users
+      security:
+        - ApiKeyAuth: [ ]  # Requiere la api-key para esta operación
+      x-accepts:
+        - application/json
+      responses:
+        "200":
+          description: A list of users.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+              example:
+                - id: "123"
+                  name: "John Doe"
+                  email: "john.doe@example.com"
+                  createdAt: "2023-11-12T10:30:00.000+00:00"
+    post:
+      description: Register a new user in the system.
+      summary: Create a new user
+      security:
+        - ApiKeyAuth: [ ]  # Requiere la api-key para esta operación
+      x-content-type: application/json
+      x-accepts:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
+      responses:
+        "201":
+          description: User created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              example:
+                id: "123"
+                name: "John Doe"
+                email: "john.doe@example.com"
+                createdAt: "2023-11-12T10:30:00.000+00:00"
+
+  /users/{userId}:
+    get:
+      description: Retrieve details of a user by their ID.
+      summary: Get user by ID
+      security:
+        - ApiKeyAuth: [ ]  # Requiere la api-key para esta operación
+      x-accepts:
+        - application/json
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              example:
+                id: "123"
+                name: "John Doe"
+                email: "john.doe@example.com"
+                createdAt: "2023-11-12T10:30:00.000+00:00"
+        "404":
+          description: User not found
+    put:
+      description: Update information of a specific user.
+      summary: Update user
+      security:
+        - ApiKeyAuth: [ ]  # Requiere la api-key para esta operación
+      x-content-type: application/json
+      x-accepts:
+        - application/json
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUser'
+      responses:
+        "200":
+          description: User updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              example:
+                id: "123"
+                name: "John Smith"
+                email: "john.smith@example.com"
+                createdAt: "2023-11-12T10:30:00.000+00:00"
+        "404":
+          description: User not found
+    delete:
+      description: Remove a user from the system.
+      summary: Delete user
+      security:
+        - ApiKeyAuth: [ ]  # Requiere la api-key para esta operación
+      x-accepts:
+        - application/json
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: User deleted successfully.
+        "404":
+          description: User not found
+
+  /orders:
+    get:
+      description: Retrieve a list of all orders in the system.
+      summary: List all orders
+      security:
+        - BearerAuth: [ ] # Requiere la token para esta operación
+      x-accepts:
+        - application/json
+      responses:
+        "200":
+          description: A list of orders.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+              example:
+                - id: "order123"
+                  userId: "123"
+                  status: "pending"
+                  createdAt: "2023-11-12T10:30:00.000+00:00"
+    post:
+      description: Place a new order in the system.
+      summary: Create a new order
+      security:
+        - BearerAuth: [ ] # Requiere la token para esta operación
+      x-content-type: application/json
+      x-accepts:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewOrder'
+      responses:
+        "201":
+          description: Order created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+              example:
+                id: "order123"
+                userId: "123"
+                status: "pending"
+                createdAt: "2023-11-12T10:30:00.000+00:00"
+
+  /customer-support:
+    post:
+      description: Allow users to submit customer support requests.
+      summary: Submit a support request
+      security:
+        - BearerAuth: [ ] # Requiere la token para esta operación
+      x-content-type: application/json
+      x-accepts:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SupportRequest'
+      responses:
+        "201":
+          description: Support request submitted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupportRequest'
+              example:
+                userId: "userId44455"
+                subject: "order Issue"
+                message: "my order is not ready."
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    User:
+      type: object
+      required:
+        - id
+        - name
+        - email
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+    NewUser:
+      type: object
+      required:
+        - name
+        - email
+        - password
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    UpdateUser:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+    Order:
+      type: object
+      required:
+        - id
+        - userId
+        - status
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        status:
+          type: string
+          enum:
+            - pending
+            - shipped
+            - delivered
+            - canceled
+        createdAt:
+          type: string
+          format: date-time
+    NewOrder:
+      type: object
+      required:
+        - userId
+        - items
+      properties:
+        userId:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+    OrderItem:
+      type: object
+      properties:
+        productId:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+      required:
+        - productId
+        - quantity
+    SupportRequest:
+      type: object
+      required:
+        - userId
+        - subject
+        - message
+      properties:
+        userId:
+          type: string
+        subject:
+          type: string
+        message:
+          type: string
