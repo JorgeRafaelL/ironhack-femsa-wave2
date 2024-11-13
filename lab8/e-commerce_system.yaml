@@ -30,7 +30,7 @@ paths:
                 - id: "123"
                   name: "John Doe"
                   email: "john.doe@example.com"
-                  createdAt: "2023-11-12T10:30:00.000+00:00"
+                  createdAt: "2024-11-12T10:30:00.000+00:00"
     post:
       description: Register a new user in the system.
       summary: Create a new user
@@ -56,7 +56,7 @@ paths:
                 id: "123"
                 name: "John Doe"
                 email: "john.doe@example.com"
-                createdAt: "2023-11-12T10:30:00.000+00:00"
+                createdAt: "2024-11-12T10:30:00.000+00:00"
 
   /users/{userId}:
     get:
@@ -83,7 +83,7 @@ paths:
                 id: "123"
                 name: "John Doe"
                 email: "john.doe@example.com"
-                createdAt: "2023-11-12T10:30:00.000+00:00"
+                createdAt: "2024-11-12T10:30:00.000+00:00"
         "404":
           description: User not found
     put:
@@ -117,7 +117,7 @@ paths:
                 id: "123"
                 name: "John Smith"
                 email: "john.smith@example.com"
-                createdAt: "2023-11-12T10:30:00.000+00:00"
+                createdAt: "2024-11-12T10:30:00.000+00:00"
         "404":
           description: User not found
     delete:
@@ -160,7 +160,7 @@ paths:
                 - id: "order123"
                   userId: "123"
                   status: "pending"
-                  createdAt: "2023-11-12T10:30:00.000+00:00"
+                  createdAt: "2024-11-12T10:30:00.000+00:00"
     post:
       description: Place a new order in the system.
       summary: Create a new order
@@ -186,7 +186,7 @@ paths:
                 id: "order123"
                 userId: "123"
                 status: "pending"
-                createdAt: "2023-11-12T10:30:00.000+00:00"
+                createdAt: "2024-11-12T10:30:00.000+00:00"
 
   /customer-support:
     post:
